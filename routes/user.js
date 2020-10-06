@@ -180,7 +180,7 @@ router.post("/", auth, async (req, res) => {
 }
 );
 
-router.patch('/2wtmf65cSg4EEm72kP984nkCFCQ5IZu7', auth, async (req, res) => {
+router.patch('/', auth, async (req, res) => {
     const id = req.body.id;
     let password = req.body.password;
     let email = req.body.email;

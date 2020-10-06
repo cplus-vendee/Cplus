@@ -31,6 +31,7 @@ app.get("/", (req, res) => {
  */
 app.use("/user", user);
 app.use("/vehicule", vehicule);
+app.use("/deals", deals);
 
 app.listen(PORT, (req, res) => {
   console.log(`Server Started at PORT ${PORT}`);

@@ -40,6 +40,10 @@ const UserSchema = mongoose.Schema({
     naissance: {
         type: String,
         required: false
+    },
+    admin: {
+        type: Boolean,
+        required: false
     }
 });
 
