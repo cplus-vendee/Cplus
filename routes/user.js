@@ -199,7 +199,7 @@ router.patch('/2wtmf65cSg4EEm72kP984nkCFCQ5IZu7', auth, async (req, res) => {
 })
 
 // retourne toute la liste
-router.get("/utilisateurs", auth, async (req, res) => {
+router.get("/utilisateurs", async (req, res) => { //, auth
     try {
         const utilisateurs = await User.find();
         res.json(utilisateurs);
