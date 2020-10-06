@@ -7,12 +7,6 @@ const auth = require("../middleware/auth");
 
 const Vehicule = require("../model/vehicule");
 
-/**
- * @method - POST
- * @param - /signup
- * @description - User SignUp
- */
-
 
 // pour creer un objet produit
 router.post("/", auth, async (req, res) => {
