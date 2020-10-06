@@ -3,6 +3,7 @@ const cors = require('cors');
 const bodyParser = require("body-parser");
 const user = require("../routes/user");
 const vehicule = require("../routes/vehicule");
+const deals = require("../routes/deals");
 const InitiateMongoServer = require("../config/db");
 
 // Initiate Mongo Server
