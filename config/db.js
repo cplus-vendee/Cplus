@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 // Replace this with your MONGOURI.
-const MONGOURI = "";
+const MONGOURI = "mongodb+srv://cplus-user:cplus-password-2020@cplus.tjwdd.mongodb.net/<dbname>?retryWrites=true&w=majority";
 
 const InitiateMongoServer = async () => {
     try {
