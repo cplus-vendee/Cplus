@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 
 const DealsSchema = mongoose.Schema({
     id: {
-        type: Number,
-        required: true
+        type: String,
+        required: false
     },
     montant: {
-        type: String,
+        type: Number,
         required: true
     },
     vendeur: {
@@ -14,7 +14,7 @@ const DealsSchema = mongoose.Schema({
         required: true
     },
     acheteur: {
-        type: Number,
+        type: String,
         required: true
     },
     date: {
