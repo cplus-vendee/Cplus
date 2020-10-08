@@ -44,18 +44,25 @@ router.get("/list", auth, async (req, res) => {
 });
 
 router.post("/list/from/to", auth, async (req, res) => {
-    const from = req.body.from;
-    const to = req.body.to;
+    const from = new Date(req.body.from);
+    const to = new Date(req.body.to);
     try {
         const deals = await Deals.find();
         var dealsToShow = []
         deals.forEach(deal => {
-            if ( from < deals.date < to ){
+            console.log(from)
+            var dealDate = new Date(deal.date.substring(0,10));
+            console.log(new Date(deal.date.substring(0,10)))
+            console.log(to)
+            if (dealDate > from && dealDate <= to){
+                console.log("yes")
                 dealsToShow.push(deal)
             }
         });
+        console.log(dealsToShow)
         res.json(dealsToShow);
     } catch (e) {
+        console.log(e)
         res.json("Error in Fetching Product");
     }
 });
