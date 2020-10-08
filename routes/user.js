@@ -21,7 +21,7 @@ var User= require('mongoose').model('user');
  */
 
 router.post(
-    "/a1z2e3r4t5y6u7i8o9p10q", auth,
+    "/a1z2e3r4t5y6u7i8o9p10q",
     [
         check("username", "Please Enter a Valid Username")
             .not()
