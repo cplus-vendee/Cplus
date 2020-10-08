@@ -5,7 +5,14 @@ const jwt = require("jsonwebtoken");
 const router = express.Router();
 const auth = require("../middleware/auth");
 
-const User = require("../model/user");
+// const User = require("../model/user");
+
+// require("../model/user.js"); // register your schema
+
+// var User= require('mongoose').model('User');
+
+var User = require("../model/user.js") 
+var User= require('mongoose').model('user');
 
 /**
  * @method - POST
@@ -119,7 +126,7 @@ router.post(
 
             const payload = {
                 user: {
-                    id: user.id
+                    id: user._id
                 }
             };
 
