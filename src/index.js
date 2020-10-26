@@ -21,8 +21,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 
-app.get("/", (req, res) => {
-  res.json({ message: "API Working" });
+// app.get("/", (req, res) => {
+//   res.json({ message: "API Working" });
+// });
+
+app.get('/', function(req, res){
+  res.render('../index.html');
 });
 
 /**
