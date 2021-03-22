@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require('cors');
 const bodyParser = require("body-parser");
+const path = require("path");
 const user = require("../routes/user");
 const vehicule = require("../routes/vehicule");
 const deals = require("../routes/deals");
@@ -25,8 +26,12 @@ app.use(cors());
 //   res.json({ message: "API Working" });
 // });
 
+// app.engine('html', require('ejs').renderFile);
+// app.engine('html', require('ejs').renderFile);
+
 app.get('/', function(req, res){
-  res.render('../index.html');
+  // app.use(express.static(path.join('../index.html', 'public')));
+  // res.render('../index.html');
 });
 
 /**
