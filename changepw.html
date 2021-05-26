@@ -214,11 +214,19 @@
 </html>
 
 <style>
-  #vente{
+  #pwchanging{
     color:white;
   }
 
   #pwchanging{
+    cursor: pointer;
+  }
+
+  #logout{
+    cursor: pointer;
+  }
+
+  #changepw{
     cursor: pointer;
   }
 </style>
@@ -232,6 +240,7 @@
   $("#username").html(JSON.parse(readCookie("user")).username)
 
   $("#pwchanging").click(function() {
+    console.log("changePW")
     if (($("#password").val()!= "") && ($("#password2").val() != "") && ($("#password2").val() == $("#password").val())){
 
       var settings = {  
