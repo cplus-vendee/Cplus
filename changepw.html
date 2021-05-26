@@ -100,11 +100,18 @@
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <a class="dropdown-item" data-toggle="modal" data-target="#changepwModal" id="changepw">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Changer mon mot de passe
+                </a>
+              </div>
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal" id="logout">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Deconnexion
                 </a>
               </div>
+
             </li>
 
           </ul>
@@ -144,8 +151,11 @@
                           <input id="montant" type="number" class="form-control form-control-user" id="exampleInputmontant" aria-describedby="montantHelp" value="2000">
                         </div>
                         <div class="form-group">
-                      <input id="password" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Mot de Passe">
-                    </div>
+                          <input id="password" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Mot de Passe">
+                        </div>
+                        <div class="form-group">
+                          <input id="password" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Mot de Passe">
+                        </div>
                         <br>
                         <a id="vente" class="btn btn-primary btn-user btn-block">
                           Valider

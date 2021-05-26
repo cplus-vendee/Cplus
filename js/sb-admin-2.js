@@ -85,6 +85,10 @@ $("#logout").click(function() {
   logout()
 })
 
+$("#changepw").click(function() {
+  window.location="changepw.html"
+})
+
 function logout(){
   eraseCookie("token")
   eraseCookie("user")
