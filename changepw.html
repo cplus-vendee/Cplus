@@ -2,7 +2,7 @@
 <html lang="en">
 
 <script>
-  var utilisateur = []
+  var acheteurs = []
 </script>
 
 <head>
@@ -59,7 +59,7 @@
       </li>
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="totaux.html">
           <i class="fas fa-fw fa-receipt"></i>
           <span>Totaux</span></a>
@@ -116,59 +116,48 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Ventes</h1>
-
-          <!-- DataTales Example -->
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Durée</h6>
-            </div>
-            <div class="card-body">
-              <form>
-                <div class="form-group row">
-                  <label for="example-date-input" class="col-2 col-form-label">Du</label>
-                  <div class="col-10">
-                    <input class="form-control" id="fromDate" type="date" value="2011-08-19" id="example-date-input">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="example-date-input" class="col-2 col-form-label">Au</label>
-                  <div class="col-10">
-                    <input class="form-control" id="toDate" type="date" value="2011-08-19" id="example-date-input">
-                  </div>
-                </div>
-                <a id="vente" class="btn btn-primary btn-user btn-block">
-                  Valider
-                </a>
-              </form>
-            </div>
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Changer de mot de passe</h1>
           </div>
 
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Liste des ventes</h6>
-            </div>
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>Utilisateur</th>
-                      <th>Montant Total</th>
-                    </tr>
-                  </thead>
-                  <tfoot>
-                    <tr>
-                      <th>Utilisateur</th>
-                      <th>Montant Total</th>
-                    </tr>
-                  </tfoot>
-                  <tbody id="liste">
-                    
-                  </tbody>
-                </table>
+          <!-- Content Row -->
+          <div class="row">
+
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-12 col-md-12 mb-12">
+              <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Changer mon mot de passe</div>
+                      <form>
+                        <br>
+                        <label for="acheteur-select">Nouveau mot de passe</label>
+
+                        <select name="acheteurs" id="acheteur-select" class="form-control">
+                            <option value="">--Choisissez l'acheteur--</option>
+                        </select>
+
+                        <br>
+                        <label for="montant">Répéter le nouveau mot de passe</label>
+                        <div class="form-group">
+                          <input id="montant" type="number" class="form-control form-control-user" id="exampleInputmontant" aria-describedby="montantHelp" value="2000">
+                        </div>
+                        <div class="form-group">
+                      <input id="password" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Mot de Passe">
+                    </div>
+                        <br>
+                        <a id="vente" class="btn btn-primary btn-user btn-block">
+                          Valider
+                        </a>
+
+                      </form>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
+
           </div>
 
         </div>
@@ -210,8 +199,11 @@
   <script src="js/sb-admin-2.js"></script>
 
   <!-- Page level plugins -->
-  <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+  <script src="vendor/chart.js/Chart.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="js/demo/chart-area-demo.js"></script>
+  <script src="js/demo/chart-pie-demo.js"></script>
 
 </body>
 
@@ -228,102 +220,55 @@
 </style>
 
 <script>
-  $.fn.dataTable.ext.errMode = 'none';
-
-  var d = new Date();
-  var year = d.getFullYear();
-  var month = d.getMonth();
-  var day = d.getDate();
-  var c = new Date(year - 1, month, day);
-  $("#toDate").val(((d).toISOString()).substring(0,10))
-
-  $("#fromDate").val(((c).toISOString()).substring(0,10))
-
 
   if(readCookie("token") == null || readCookie("token") == "undefined"){
     logout()
   }
 
-  $( document ).ready(function() {
+  var settings = {
+    "url": "https://cplus-vendee.herokuapp.com/user/utilisateurs",
+    "method": "GET",
+    "timeout": 0,
+    "headers": {
+      "token": readCookie("token")
+    },
+  };
 
-    var table = $('#dataTable').DataTable({
-      dom: 'Bfrtip',
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+    acheteurs = response
+    acheteurs.forEach(acheteur => {
+      if(acheteur._id != JSON.parse(readCookie("user"))._id){
+              $("#acheteur-select").append(`<option value="${acheteur._id}">${acheteur.username}</option>`)
+
+      }
     });
-
-    function createTable(){
-      table.clear()
-
-      var settings = {
-          "url": "https://cplus-vendee.herokuapp.com/user/utilisateurs",
-          "method": "GET",
-          "timeout": 0,
-          "async":false,
-          "headers": {
-            "token": readCookie("token")
-          },
-        };
-
-        $.ajax(settings).done(function (response) {
-          console.log(response);
-          utilisateur = response
-          utilisateur.forEach(user => {
-          
-            user["total"]=0
-            console.log(user)
-          });
-        });
-
-        var settings = {
-          "url": "https://cplus-vendee.herokuapp.com/deals/list/from/to",
-          "method": "POST",
-          "timeout": 0,
-          "async":false,
-          "headers": {
-            "token": readCookie("token"),
-            "Content-Type": "application/x-www-form-urlencoded"
-          },
-          "data": {
-            "from": $("#fromDate").val(),
-            "to": $("#toDate").val()
-          }
-        };
-
-        $.ajax(settings).done(function (response) {
-          console.log(response);
-          response.forEach(vente => {
-            utilisateur.forEach(user => {
-              if(user._id == vente.acheteur){
-                user.total += vente.montant
-              }
-            });
-          });
-
-          
-
-          console.log(utilisateur)
-          utilisateur.forEach(user => {
-            console.log(user)
-            table.row.add([user.username,user.total]).draw(false);
-            table.columns.adjust().draw();
-          });
-        });
-
-        
-    }
-    
-    createTable()
-
-    $("#vente").click(function() {
-      createTable()
-    })
-
-
-
-
-  
+  });
   
   $("#username").html(JSON.parse(readCookie("user")).username)
-});
 
-  
+  $("#vente").click(function() {
+    if (($("#acheteur-select").val()!= "") && ($("#montant").val() > 0)){
+
+      var settings = {
+        "url": "https://cplus-vendee.herokuapp.com/deals/",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+          "token": readCookie("token"),
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "data": {
+          "montant": $("#montant").val(),
+          "acheteur": $("#acheteur-select").val()
+        }
+      };
+
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+      });
+    }
+    
+    
+  });
 </script>
