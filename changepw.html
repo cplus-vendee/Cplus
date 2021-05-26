@@ -104,8 +104,6 @@
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Changer mon mot de passe
                 </a>
-              </div>
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal" id="logout">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Deconnexion
@@ -141,23 +139,17 @@
                         <br>
                         <label for="acheteur-select">Nouveau mot de passe</label>
 
-                        <select name="acheteurs" id="acheteur-select" class="form-control">
-                            <option value="">--Choisissez l'acheteur--</option>
-                        </select>
+                        <div class="form-group">
+                          <input id="password" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Mot de Passe">
+                        </div>
 
                         <br>
                         <label for="montant">Répéter le nouveau mot de passe</label>
                         <div class="form-group">
-                          <input id="montant" type="number" class="form-control form-control-user" id="exampleInputmontant" aria-describedby="montantHelp" value="2000">
-                        </div>
-                        <div class="form-group">
-                          <input id="password" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Mot de Passe">
-                        </div>
-                        <div class="form-group">
-                          <input id="password" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Mot de Passe">
+                          <input id="password2" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Mot de Passe">
                         </div>
                         <br>
-                        <a id="vente" class="btn btn-primary btn-user btn-block">
+                        <a id="pwchanging" class="btn btn-primary btn-user btn-block">
                           Valider
                         </a>
 
@@ -234,45 +226,25 @@
   if(readCookie("token") == null || readCookie("token") == "undefined"){
     logout()
   }
-
-  var settings = {
-    "url": "https://cplus-vendee.herokuapp.com/user/utilisateurs",
-    "method": "GET",
-    "timeout": 0,
-    "headers": {
-      "token": readCookie("token")
-    },
-  };
-
-  $.ajax(settings).done(function (response) {
-    console.log(response);
-    acheteurs = response
-    acheteurs.forEach(acheteur => {
-      if(acheteur._id != JSON.parse(readCookie("user"))._id){
-              $("#acheteur-select").append(`<option value="${acheteur._id}">${acheteur.username}</option>`)
-
-      }
-    });
-  });
   
   $("#username").html(JSON.parse(readCookie("user")).username)
 
-  $("#vente").click(function() {
-    if (($("#acheteur-select").val()!= "") && ($("#montant").val() > 0)){
+  $("#changepw").click(function() {
+    if (($("#password").val()!= "") && ($("#password2").val() != "") && ($("#password2").val() == $("#password").val())){
 
-      var settings = {
-        "url": "https://cplus-vendee.herokuapp.com/deals/",
-        "method": "POST",
-        "timeout": 0,
-        "headers": {
-          "token": readCookie("token"),
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        "data": {
-          "montant": $("#montant").val(),
-          "acheteur": $("#acheteur-select").val()
-        }
-      };
+      var settings = {  
+      "url": "https://cplus-vendee.herokuapp.com/user/",
+      "method": "PATCH",
+      "timeout": 0,
+      "headers": {
+        "token": readCookie("token"),
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "data": {
+        "email": $("#email").val(),
+        "password": $("#password").val()
+      }
+    };
 
       $.ajax(settings).done(function (response) {
         console.log(response);
