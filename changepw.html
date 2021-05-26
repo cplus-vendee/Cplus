@@ -125,6 +125,8 @@
             <h1 class="h3 mb-0 text-gray-800">Changer de mot de passe</h1>
           </div>
 
+          <div id="message"></div>
+
           <!-- Content Row -->
           <div class="row">
 
@@ -216,7 +218,7 @@
     color:white;
   }
 
-  #logout{
+  #pwchanging{
     cursor: pointer;
   }
 </style>
@@ -229,7 +231,7 @@
   
   $("#username").html(JSON.parse(readCookie("user")).username)
 
-  $("#changepw").click(function() {
+  $("#pwchanging").click(function() {
     if (($("#password").val()!= "") && ($("#password2").val() != "") && ($("#password2").val() == $("#password").val())){
 
       var settings = {  
@@ -247,8 +249,18 @@
     };
 
       $.ajax(settings).done(function (response) {
+        if (response.token && response.user){
+          $("#message").html(`<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>Mot de passe changé !</strong> 
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>`)
+        }
         console.log(response);
       });
+    } else {
+      window.alert("Les 2 mots de passe entrés ne sont pas corrects")
     }
     
     
