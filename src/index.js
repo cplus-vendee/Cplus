@@ -31,7 +31,8 @@ app.use(cors());
 
 app.get('/', function(req, res){
   // app.use(express.static(path.join('../index.html', 'public')));
-  res.render('../login.html');
+  res.sendFile('../login.html');
+  // res.render('../login.html');
 });
 
 /**
