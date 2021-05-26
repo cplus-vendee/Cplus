@@ -28,10 +28,13 @@ app.use(cors());
 
 // app.engine('html', require('ejs').renderFile);
 // app.engine('html', require('ejs').renderFile);
+app.set("view options", {layout: false});
+
+app.engine('html', require('ejs').renderFile);
 
 app.get('/', function(req, res){
   // app.use(express.static(path.join('../index.html', 'public')));
-  res.render('../');
+  res.render('../index.html');
 });
 
 /**
