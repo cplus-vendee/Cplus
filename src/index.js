@@ -31,8 +31,7 @@ app.use(cors());
 
 app.get('/', function(req, res){
   // app.use(express.static(path.join('../index.html', 'public')));
-  console.log(__dirname + '/index.html')
-  res.sendFile(__dirname + '/index.html');
+  res.json({ message: "API Working", "use" : "https://julienbardin.github.io/Cplus/login.html" });
   // res.render('../login.html');
 });
 
