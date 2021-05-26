@@ -81,9 +81,9 @@ function eraseCookie(name) {
 	createCookie(name,"",-1);
 }
 
-$("#logout").click(function() {
-  logout()
-})
+// $("#logout").click(function() {
+//   logout()
+// })
 
 function logout(){
   eraseCookie("token")
