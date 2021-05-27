@@ -205,8 +205,16 @@ router.patch('/', auth, async (req, res) => {
     }
 })
 
+router.get("/running", async (req, res) => { //, auth
+    try {
+        res.json({"status" : "keep running"});
+    } catch (e) {
+        res.json("Error in Fetching Product");
+    }
+});
+
 // retourne toute la liste
-router.get("/utilisateurs", async (req, res) => { //, auth
+router.get("/utilisateurs", auth, async (req, res) => { //, auth
     try {
         const utilisateurs = await User.find();
         res.json(utilisateurs);
