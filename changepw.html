@@ -241,36 +241,40 @@
 
   $("#pwchanging").click(function() {
     console.log("changePW")
-    if (($("#password").val()!== "") && ($("#password2").val() !== "") && ($("#password2").val() === $("#password").val())){
+     if($("#exampleInputPassword").val().length > 6)
+      if (($("#password").val()!== "") && ($("#password2").val() !== "") && ($("#password2").val() === $("#password").val())){
 
-      var settings = {  
-      "url": "https://cplus-vendee.herokuapp.com/user/",
-      "method": "PATCH",
-      "timeout": 0,
-      "headers": {
-        "token": readCookie("token"),
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      "data": {
-        "email": JSON.parse(readCookie("user")).email,
-        "password": $("#password").val()
-      }
-    };
-
-      $.ajax(settings).done(function (response) {
-        if (response.token && response.user){
-          $("#message").html(`<div class="alert alert-success alert-dismissible fade show" role="alert">
-  <strong>Mot de passe changé !</strong> 
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>`)
+        var settings = {  
+        "url": "https://cplus-vendee.herokuapp.com/user/",
+        "method": "PATCH",
+        "timeout": 0,
+        "headers": {
+          "token": readCookie("token"),
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "data": {
+          "email": JSON.parse(readCookie("user")).email,
+          "password": $("#password").val()
         }
-        console.log(response);
-      });
-      
+      };
+
+        $.ajax(settings).done(function (response) {
+          if (response.token && response.user){
+            $("#message").html(`<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Mot de passe changé !</strong> 
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>`)
+          }
+          console.log(response);
+        });
+        
+      } else {
+        window.alert("Les 2 mots de passe entrés ne sont pas corrects")
+      }
     } else {
-      window.alert("Les 2 mots de passe entrés ne sont pas corrects")
+      window.alert("La taille du mot de masse n'est pas assez longue (doit être > 6)")
     }
     
     

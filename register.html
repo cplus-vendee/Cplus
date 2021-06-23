@@ -86,33 +86,37 @@
 
   $("#register").click(function() {
 
-    if ( $("#exampleInputPassword").val() === $("#exampleRepeatPassword").val()){
-      var settings = {
-        "url": "https://cplus-vendee.herokuapp.com/user/a1z2e3r4t5y6u7i8o9p10q",
-        "method": "POST",
-        "timeout": 0,
-        "headers": {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        "data": {
-          "email": $("#email").val(),
-          "username": $("#nomutilisateur").val(),
-          "password": $("#exampleInputPassword").val()
-        }
-      };
+    if($("#exampleInputPassword").val().length > 6)
+      if ( $("#exampleInputPassword").val() === $("#exampleRepeatPassword").val()){
+        var settings = {
+          "url": "https://cplus-vendee.herokuapp.com/user/a1z2e3r4t5y6u7i8o9p10q",
+          "method": "POST",
+          "timeout": 0,
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "data": {
+            "email": $("#exampleInputEmail").val(),
+            "username": $("#nomutilisateur").val(),
+            "password": $("#exampleInputPassword").val()
+          }
+        };
 
-      $.ajax(settings).done(function (response) {
-        console.log(response);
-        if (response.token && response.user){
-          createCookie("token",response.token,7)
-          createCookie("user",JSON.stringify(response.user),7)
-          window.location="index.html"
-        } else {
-          window.alert("Identifiants de connexion erronés")
-        }
-      });
+        $.ajax(settings).done(function (response) {
+          console.log(response);
+          if (response.token && response.user){
+            createCookie("token",response.token,7)
+            createCookie("user",JSON.stringify(response.user),7)
+            window.location="index.html"
+          } else {
+            window.alert("Identifiants de connexion erronés")
+          }
+        });
+      } else {
+        window.alert("Mot de passe non identique")
+      }
     } else {
-      window.alert("Mot de passe non identique")
+      window.alert("La taille du mot de masse n'est pas assez longue (doit être > 6)")
     }
   });
 </script>
