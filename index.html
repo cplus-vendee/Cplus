@@ -266,6 +266,20 @@
       };
 
       $.ajax(settings).done(function (response) {
+        if (response._id && response.acheteur && response.date){
+            $("#message").html(`<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Transaction enregistrée !</strong> 
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>`)
+          } else {
+            $("#message").html(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Erreur ! Contacter "julien@bardin.me" si le problème persiste.</strong> 
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>`)
         console.log(response);
       });
     }

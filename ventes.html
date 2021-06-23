@@ -267,8 +267,6 @@ $.ajax(settings).done(function (response) {
     });
   });
 
-  
-
   response.forEach(vente => {
       console.log(vente.vendeur_username)
     table.row.add([vente.vendeur_username,vente.acheteur_username,vente.montant,vente.date]).draw(false);
