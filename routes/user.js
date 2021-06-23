@@ -191,7 +191,7 @@ router.patch('/', auth, async (req, res) => {
     const id = req.body.id;
     let password = req.body.password;
     let email = req.body.email;
-    let user = await User.findOne({ email });
+    let user = await User.findOne({ email: email });
     console.log(email);
     console.log(user._id);
     try {

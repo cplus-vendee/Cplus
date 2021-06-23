@@ -241,7 +241,7 @@
 
   $("#pwchanging").click(function() {
     console.log("changePW")
-    if (($("#password").val()!= "") && ($("#password2").val() != "") && ($("#password2").val() == $("#password").val())){
+    if (($("#password").val()!== "") && ($("#password2").val() !== "") && ($("#password2").val() === $("#password").val())){
 
       var settings = {  
       "url": "https://cplus-vendee.herokuapp.com/user/",
@@ -268,6 +268,7 @@
         }
         console.log(response);
       });
+      
     } else {
       window.alert("Les 2 mots de passe entrés ne sont pas corrects")
     }
