@@ -47,7 +47,7 @@ router.post(
         } = req.body;
         try {
             let user = await User.findOne({
-                email
+                email : email
             });
             if (user) {
                 return res.status(400).json({
@@ -188,7 +188,6 @@ router.post("/", auth, async (req, res) => {
 );
 
 router.patch('/', auth, async (req, res) => {
-    const id = req.body.id;
     let password = req.body.password;
     let email = req.body.email;
     let user = await User.findOne({ email: email });
@@ -291,59 +290,59 @@ router.put('/', auth, async (req, res) => {
     }
 })
 
-router.patch('/', auth, async (req, res) => {
-    const id = req.body.id;
-    const user = await User.findOne({ id: id })
+// router.patch('/', auth, async (req, res) => {
+//     const id = req.body.id;
+//     const user = await User.findOne({ id: id })
 
-    const nom = req.body.nom;
-    const prenom = req.body.prenom;
-    const email = req.body.email;
-    const type = req.body.type;
-    const tel = req.body.tel;
-    const date = req.body.date;
-    const numero = req.body.numero;
-    const naissance = req.body.naissance;
+//     const nom = req.body.nom;
+//     const prenom = req.body.prenom;
+//     const email = req.body.email;
+//     const type = req.body.type;
+//     const tel = req.body.tel;
+//     const date = req.body.date;
+//     const numero = req.body.numero;
+//     const naissance = req.body.naissance;
 
-    console.log(nom);
-    console.log(prenom);
-    console.log(email);
-    console.log(type);
-    console.log(tel);
-    console.log(date);
-    console.log(numero);
-    console.log(naissance)
-    if (prenom) {
-        user.prenom = prenom;
-    }
-    if (nom) {
-        user.nom = nom;
-    }
-    if (email) {
-        user.email = email;
-    }
-    if (type) {
-        user.type = type;
-    }
-    if (tel) {
-        user.tel = tel;
-    }
-    if (date) {
-        user.date = date;
-    }
-    if (numero) {
-        user.numero = numero;
-    }
-    if (naissance) {
-        user.naissance = naissance;
-    }
+//     console.log(nom);
+//     console.log(prenom);
+//     console.log(email);
+//     console.log(type);
+//     console.log(tel);
+//     console.log(date);
+//     console.log(numero);
+//     console.log(naissance)
+//     if (prenom) {
+//         user.prenom = prenom;
+//     }
+//     if (nom) {
+//         user.nom = nom;
+//     }
+//     if (email) {
+//         user.email = email;
+//     }
+//     if (type) {
+//         user.type = type;
+//     }
+//     if (tel) {
+//         user.tel = tel;
+//     }
+//     if (date) {
+//         user.date = date;
+//     }
+//     if (numero) {
+//         user.numero = numero;
+//     }
+//     if (naissance) {
+//         user.naissance = naissance;
+//     }
 
-    try {
-        await user.save() // on sauvegarde les modification
-        res.json(user)
-    } catch (e) {
-        res.json("Error in Fetching Product");
-    }
-})
+//     try {
+//         await user.save() // on sauvegarde les modification
+//         res.json(user)
+//     } catch (e) {
+//         res.json("Error in Fetching Product");
+//     }
+// })
 
 router.delete("/", auth, async (req, res) => {
     const id = req.body.id;

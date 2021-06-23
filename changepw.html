@@ -252,7 +252,7 @@
         "Content-Type": "application/x-www-form-urlencoded"
       },
       "data": {
-        "email": $("#email").val(),
+        "email": JSON.parse(readCookie("user")).email,
         "password": $("#password").val()
       }
     };
