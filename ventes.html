@@ -17,30 +17,33 @@
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
 
   <link rel="icon" href="favicon.ico" />
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.css" rel="stylesheet">
   <link rel="apple-touch-icon" href="./img/cplus-logo.png">
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<link href="./img/home-cplus-2048.png" sizes="2048x2732" rel="apple-touch-startup-image" />
-<link href="./img/home-cplus-1668.png" sizes="1668x2224" rel="apple-touch-startup-image" />
-<link href="./img/home-cplus-1536.png" sizes="1536x2048" rel="apple-touch-startup-image" />
-<link href="./img/home-cplus-1125.png" sizes="1125x2436" rel="apple-touch-startup-image" />
-<link href="./img/home-cplus-1242.png" sizes="1242x2208" rel="apple-touch-startup-image" />
-<link href="./img/home-cplus-750.png" sizes="750x1334" rel="apple-touch-startup-image" />
-<link href="./img/home-cplus-640.png" sizes="640x1136" rel="apple-touch-startup-image" />
-<meta name="apple-mobile-web-app-status-bar-style" content="default" />
-<meta name="apple-mobile-web-app-title" content="Cplus" />
-<meta name="viewport" content = "width = device-width, initial-scale = 1.0, minimum-scale = 1, maximum-scale = 1, user-scalable = no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link href="./img/home-cplus-2048.png" sizes="2048x2732" rel="apple-touch-startup-image" />
+  <link href="./img/home-cplus-1668.png" sizes="1668x2224" rel="apple-touch-startup-image" />
+  <link href="./img/home-cplus-1536.png" sizes="1536x2048" rel="apple-touch-startup-image" />
+  <link href="./img/home-cplus-1125.png" sizes="1125x2436" rel="apple-touch-startup-image" />
+  <link href="./img/home-cplus-1242.png" sizes="1242x2208" rel="apple-touch-startup-image" />
+  <link href="./img/home-cplus-750.png" sizes="750x1334" rel="apple-touch-startup-image" />
+  <link href="./img/home-cplus-640.png" sizes="640x1136" rel="apple-touch-startup-image" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Cplus" />
+  <meta name="viewport"
+    content="width = device-width, initial-scale = 1.0, minimum-scale = 1, maximum-scale = 1, user-scalable = no" />
 
 </head>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-8GW2M7RX51"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
+  function gtag() { dataLayer.push(arguments); }
   gtag('js', new Date());
 
   gtag('config', 'G-8GW2M7RX51');
@@ -86,7 +89,7 @@
           <span>Totaux</span></a>
       </li>
 
-      
+
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
@@ -115,7 +118,8 @@
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="username"></span>
                 <img class="img-profile rounded-circle" src="./img/bonhomme.jpg">
               </a>
@@ -159,6 +163,7 @@
                       <th>Acheteur</th>
                       <th>Montant</th>
                       <th>Date</th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tfoot>
@@ -167,10 +172,11 @@
                       <th>Acheteur</th>
                       <th>Montant</th>
                       <th>Date</th>
+                      <th></th>
                     </tr>
                   </tfoot>
                   <tbody id="liste">
-                    
+
                   </tbody>
                 </table>
               </div>
@@ -224,15 +230,15 @@
 </html>
 
 <style>
-  #vente{
-    color:white;
+  #vente {
+    color: white;
   }
 
-  #logout{
+  #logout {
     cursor: pointer;
   }
 
-  #changepw{
+  #changepw {
     cursor: pointer;
   }
 </style>
@@ -241,63 +247,94 @@
   $.fn.dataTable.ext.errMode = 'none';
 
 
-  if(readCookie("token") == null || readCookie("token") == "undefined"){
+  if (readCookie("token") == null || readCookie("token") == "undefined") {
     logout()
   }
-  $( document ).ready(function() {
+
+  function deleteDeal (id,montant,acheteur) {
+
+    if (confirm(`Etes vous sur de supprimer votre vente de ${montant} € à ${acheteur.split("_").join(' ')}?`)) {
+
+      var settings = {
+        "url": "http://localhost:4000/deals/" + id,
+        "method": "DELETE",
+        "timeout": 0,
+        "async": false,
+        "headers": {
+          "token": readCookie("token"),
+          "Content-Type": "application/x-www-form-urlencoded"
+        }
+      };
+  
+      $.ajax(settings).done(function (response) {
+        if(response == "deleted"){
+          alert("L'élément a bien été supprimé.")
+          window.location = "ventes.html"
+        }
+      })
+    }
+    
+  }
+
+  $(document).ready(function () {
 
     var table = $('#dataTable').DataTable({
       dom: 'Bfrtip',
     });
 
-  var settings = {
-    "url": "https://cplus-vendee.herokuapp.com/user/utilisateurs",
-    "method": "GET",
-    "timeout": 0,
-    "async":false,
-    "headers": {
-      "token": readCookie("token")
-    },
-  };
+    var settings = {
+      "url": "https://cplus-vendee.herokuapp.com/user/utilisateurs",
+      "method": "GET",
+      "timeout": 0,
+      "async": false,
+      "headers": {
+        "token": readCookie("token")
+      },
+    };
 
-  $.ajax(settings).done(function (response) {
-    console.log(response);
-    utilisateur = response
-  });
-
-  var settings = {
-  "url": "https://cplus-vendee.herokuapp.com/deals/list",
-  "method": "GET",
-  "timeout": 0,
-  "async":false,
-  "headers": {
-    "token": readCookie("token"),
-    "Content-Type": "application/x-www-form-urlencoded"
-  }
-};
-
-$.ajax(settings).done(function (response) {
-  console.log(response);
-  response.forEach(vente => {
-    vente.date = vente.date.substring(8,10)  +"/"+ vente.date.substring(5,7) + "/" + vente.date.substring(0,4)
-    utilisateur.forEach(user => {
-      if(user._id == vente.vendeur){
-        vente.vendeur_username = user.username
-      }
-      if(user._id == vente.acheteur){
-        vente.acheteur_username = user.username
-      }
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      utilisateur = response
     });
+
+    var settings = {
+      "url": "https://cplus-vendee.herokuapp.com/deals/list",
+      "method": "GET",
+      "timeout": 0,
+      "async": false,
+      "headers": {
+        "token": readCookie("token"),
+        "Content-Type": "application/x-www-form-urlencoded"
+      }
+    };
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      response.forEach(vente => {
+        vente.date = vente.date.substring(8, 10) + "/" + vente.date.substring(5, 7) + "/" + vente.date.substring(0, 4)
+        utilisateur.forEach(user => {
+          if (user._id == vente.vendeur) {
+            vente.vendeur_username = user.username
+            vente.vendeur_id = user._id
+          }
+          if (user._id == vente.acheteur) {
+            vente.acheteur_username = user.username
+          }
+        });
+      });
+
+      response.forEach(vente => {
+        var venteDelete = ""
+        if (vente.vendeur_id == JSON.parse(readCookie("user"))._id){
+          venteDelete =`<a onclick=deleteDeal("${vente._id}","${vente.montant}","${vente.acheteur_username.split(" ").join('_')}") style="color:red;cursor:pointer;">Supprimer</a>`
+        }
+        console.log(vente.vendeur_username)
+        table.row.add([vente.vendeur_username, vente.acheteur_username, vente.montant, vente.date, venteDelete]).draw(false);
+        table.columns.adjust().draw();
+      });
+    });
+
+    $("#username").html(JSON.parse(readCookie("user")).username)
   });
 
-  response.forEach(vente => {
-      console.log(vente.vendeur_username)
-    table.row.add([vente.vendeur_username,vente.acheteur_username,vente.montant,vente.date]).draw(false);
-		table.columns.adjust().draw();
-  });
-});
-  
-  $("#username").html(JSON.parse(readCookie("user")).username)
-});
-  
 </script>

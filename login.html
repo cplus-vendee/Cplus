@@ -129,7 +129,7 @@
       if (response.token && response.user){
         createCookie("token",response.token,7)
         createCookie("user",JSON.stringify(response.user),7)
-        window.location="index.html"
+        window.location="index.html" 
       } else {
         window.alert("Identifiants de connexion erronés")
       }

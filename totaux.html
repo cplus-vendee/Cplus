@@ -171,6 +171,8 @@
           <div class="card shadow mb-4">
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">Liste des acheteurs</h6>
+              <br>
+              <h6 class="m-0 font-weight-bold text-primary">MONTANT TOTAL : <span id="montantTotal">0</span></h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -276,6 +278,7 @@
 
     function createTable(){
       table.clear()
+      var bigTotal = 0
 
       var settings = {
           "url": "https://cplus-vendee.herokuapp.com/user/utilisateurs",
@@ -318,6 +321,7 @@
             utilisateur.forEach(user => {
               if(user._id == vente.acheteur){
                 user.total += vente.montant
+                bigTotal += vente.montant
               }
             });
           });
@@ -325,6 +329,9 @@
           
 
           console.log(utilisateur)
+          $("#montantTotal").html("")
+          $("#montantTotal").html(bigTotal)
+
           utilisateur.forEach(user => {
             console.log(user)
             table.row.add([user.username,user.total]).draw(false);

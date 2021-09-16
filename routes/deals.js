@@ -6,6 +6,7 @@ const router = express.Router();
 const auth = require("../middleware/auth");
 
 const Deals = require("../model/deals");
+var ObjectId = require('mongoose').Types.ObjectId; 
 
 
 // pour creer un objet produit
@@ -30,6 +31,42 @@ router.post("/", auth, async (req, res) => {
         res.json(new_deal)
         return
     }
+);
+
+
+router.delete("/:id", auth, async (req, res) => {
+    const token = req.header("token");
+    const decoded = jwt.verify(token, "secret");
+    // console.log(decoded.user.id)
+    console.log("delete")
+
+    const idToDelete = req.params.id;
+    const vendeur = decoded.user.id;
+
+    try {
+        console.log(idToDelete)
+        console.log(vendeur)
+        let deal = await Deals.findOne({
+            _id : new ObjectId(idToDelete),
+            vendeur: vendeur
+        });
+
+        console.log(deal)
+
+        if(deal._id){
+            await Deals.deleteOne({
+                _id : new ObjectId(deal._id)
+            });
+        }
+
+        res.json("deleted")
+        return
+
+    } catch (error) {
+        res.json("Error in Fetching Product");
+        return
+    }
+}
 );
 
 // retourne toute la liste
