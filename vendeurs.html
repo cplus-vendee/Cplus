@@ -79,10 +79,15 @@
       </li>
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="totaux.html">
           <i class="fas fa-fw fa-receipt"></i>
-          <span>Totaux</span></a>
+          <span>Totaux Acheteurs</span></a>
+      </li>
+  <li class="nav-item  active">
+        <a class="nav-link" href="vendeurs.html">
+          <i class="fas fa-fw fa-receipt"></i>
+          <span>Totaux Vendeurs</span></a>
       </li>
 
       
@@ -321,8 +326,8 @@
           response.forEach(vente => {
             utilisateur.forEach(user => {
               if(user._id == vente.vendeur){
-                user.total += vente.montant
-                bigTotal += vente.montant
+                user.total += Math.round(vente.montant)
+                bigTotal += Math.round(vente.montant)
               }
             });
           });
