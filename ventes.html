@@ -280,6 +280,7 @@
 
     var table = $('#dataTable').DataTable({
       dom: 'Bfrtip',
+      order: [[ 3, "desc" ]]
     });
 
     var settings = {
@@ -312,7 +313,7 @@
       console.log(response);
       response.forEach(vente => {
         vente.isoDate = vente.date
-        vente.date = vente.date.substring(8, 10) + "/" + vente.date.substring(5, 7) + "/" + vente.date.substring(0, 4)
+        vente.date = vente.date.substring(0, 4) + " - " +  vente.date.substring(5, 7)  + " - " + vente.date.substring(8, 10)
         utilisateur.forEach(user => {
           if (user._id == vente.vendeur) {
             vente.vendeur_username = user.username

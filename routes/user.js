@@ -74,8 +74,8 @@ router.post(
 
             jwt.sign(
                 payload,
-                "randomString", {
-                expiresIn: '6d'
+                "secret", {
+                // expiresIn: '6d'
             },
                 (err, token) => {
                     if (err) throw err;
@@ -134,7 +134,7 @@ router.post(
                 payload,
                 "secret",
                 {
-                    expiresIn: '7d'
+                    // expiresIn: '7d'
                 },
                 (err, token) => {
                     if (err) throw err;

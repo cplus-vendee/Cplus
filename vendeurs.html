@@ -140,7 +140,7 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Acheteurs</h1>
+          <h1 class="h3 mb-2 text-gray-800">Vendeurs</h1>
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
@@ -170,7 +170,7 @@
 
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Liste des acheteurs</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Liste des vendeurs</h6>
               <br>
               <h6 class="m-0 font-weight-bold text-primary">MONTANT TOTAL : <span id="montantTotal">0</span></h6>
             </div>
@@ -320,7 +320,7 @@
           console.log(response);
           response.forEach(vente => {
             utilisateur.forEach(user => {
-              if(user._id == vente.acheteur){
+              if(user._id == vente.vendeur){
                 user.total += vente.montant
                 bigTotal += vente.montant
               }
